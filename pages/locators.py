@@ -16,10 +16,10 @@ class LoginPageLocators:
     REGISTER_BUTTON = (By.NAME, "registration_submit")
 
 class ProductPageLocators:
-    PRODUCT_ADD_TO_BASKET = (By.CSS_SELECTOR, "#add_to_basket_form > button")
-    PRODUCT_BOOK_PRICE = (By.XPATH, '//*[@id="content_inner"]/article/div[1]/div[2]/p[1]')
+    PRODUCT_ADD_TO_BASKET = (By.CLASS_NAME, "btn-add-to-basket")
+    PRODUCT_BOOK_PRICE = (By.CSS_SELECTOR, "p.price_color")
     PRODUCT_BASKET_PRICE = (By.XPATH, '//*[@id="default"]/header/div[1]/div/div[2]/text()')
     PRODUCT_NAME_FROM_BOOK = (By.XPATH, '//*[@id="default"]/div[2]/div/ul/li[5]/text()')
-    PRODUCT_NAME = (By.XPATH, '//*[@id="content_inner"]/article/div[1]/div[2]/h1')
+    PRODUCT_NAME = (By.TAG_NAME, "h1")
 
 
