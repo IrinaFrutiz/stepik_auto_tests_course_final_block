@@ -32,34 +32,34 @@ def browser(request):
         print(f"\nquit {browser_name}..")
         browser.quit()
 
-supported_languages = {
-    'ar',
-    'ca',
-    'cs',
-    'da',
-    'de',
-    'en-gb',
-    'el',
-    'es',
-    'fi',
-    'fr',
-    'it',
-    'ko',
-    'nl',
-    'pl',
-    'pt',
-    'pt-br',
-    'ro',
-    'ru',
-    'sk',
-    'uk',
-    'zh-hans'
-}
-@pytest.fixture(scope="function")
-def language(request):
-    language = request.config.getoption("language")
-    if language in supported_languages:
-        return language
-    else:
-        raise pytest.UsageError("Choose the right language!")
+# supported_languages = {
+#     'ar',
+#     'ca',
+#     'cs',
+#     'da',
+#     'de',
+#     'en-gb',
+#     'el',
+#     'es',
+#     'fi',
+#     'fr',
+#     'it',
+#     'ko',
+#     'nl',
+#     'pl',
+#     'pt',
+#     'pt-br',
+#     'ro',
+#     'ru',
+#     'sk',
+#     'uk',
+#     'zh-hans'
+# }
+# @pytest.fixture(scope="function")
+# def language(request):
+#     language = request.config.getoption("language")
+#     if language in supported_languages:
+#         return language
+#     else:
+#         raise pytest.UsageError("Choose the right language!")
 
