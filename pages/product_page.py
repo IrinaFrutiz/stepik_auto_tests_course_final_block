@@ -28,4 +28,11 @@ class ProductPage(BasePage):
         sum_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_BASKET_PRICE)
         sum_book = self.browser.find_element(*ProductPageLocators.PRODUCT_BOOK_PRICE)
         assert sum_book.text == sum_basket.text,\
-        f'{sum_book.text} not equal to {sum_basket.text}'
+        f'{sum_book.text} is not equal to {sum_basket.text}'
+
+
+    def should_check_book_name(self):
+        book_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
+        book_name_ = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_FROM_BOOK)
+        assert book_name_.text == book_name.text, \
+        f'{book_name_.text} is not equal to {book_name.text}'
