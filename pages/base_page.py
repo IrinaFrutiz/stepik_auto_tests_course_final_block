@@ -1,7 +1,7 @@
 import math
-
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
-
+from selenium.webdriver.support.wait import WebDriverWait as wait
+from selenium.webdriver.support import expected_conditions as EC
 
 class BasePage():
     def __init__(self, browser, url):
@@ -36,3 +36,7 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def element_is_visible(self, locator, timeout=10):
+        return wait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
+
