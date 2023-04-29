@@ -28,6 +28,8 @@ def browser(request):
             browser = webdriver.Firefox(options=options_firefox)
         else:
             raise pytest.UsageError("--browser_name should be chrome or firefox")
+        # if you need open browser on all window
+        # browser.maximize_window()
         yield browser
         print(f"\nquit {browser_name}..")
         browser.quit()
