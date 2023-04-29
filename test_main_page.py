@@ -16,8 +16,8 @@ def test_guest_should_see_login_link(browser):
     page.open()
     page.should_be_login_link()
 
-def test_guest_should_be_login_page(browser, language):
-    link = f'https://selenium1py.pythonanywhere.com/{language}/accounts/login/'
+def test_guest_should_be_login_page(browser):
+    link = f'https://selenium1py.pythonanywhere.com/accounts/login/'
     page = LoginPage(browser, link)
     page.open()
     page.should_be_login_page()
