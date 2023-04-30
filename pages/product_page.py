@@ -15,7 +15,7 @@ class ProductPage(BasePage):
         f"{url} don't contain ?promo=newYear"
 
     def should_be_button_add_to_basket(self):
-        batton = self.is_element_present(*ProductPageLocators.PRODUCT_ADD_TO_BASKET)
+        batton = self.is_element_present(self.locators.PRODUCT_ADD_TO_BASKET)
         assert batton,\
         f"Can't find button Add to basket"
 

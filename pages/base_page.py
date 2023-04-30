@@ -16,12 +16,15 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
-    def is_element_present(self, how, what):
+    def is_element_present(self, locator):
         try:
-            self.browser.find_element(how, what)
+            self.browser.find_element(locator)
         except (NoSuchElementException):
             return False
         return True
+
+    def element_is_visible(self, locator, timeout=10):
+        return wait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -37,6 +40,4 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")
 
-    def element_is_visible(self, locator, timeout=10):
-        return wait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
 

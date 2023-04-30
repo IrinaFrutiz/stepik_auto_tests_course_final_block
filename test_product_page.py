@@ -1,13 +1,5 @@
-import time
-from telnetlib import EC
-
 import pytest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
-from pages.locators import ProductPageLocators
 from pages.product_page import ProductPage
-
 
 links = [
     "https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
@@ -49,7 +41,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.solve_quiz_and_get_code()
     page.check_message_book_added_to_basket()
     page.should_be_equel_sum_on_basket_and_book
-    # time.sleep(50)
+
 
 
 
