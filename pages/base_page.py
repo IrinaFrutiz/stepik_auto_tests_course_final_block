@@ -1,7 +1,8 @@
 import math
-from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 class BasePage():
     def __init__(self, browser, url):
@@ -25,6 +26,23 @@ class BasePage():
 
     def element_is_visible(self, locator, timeout=10):
         return wait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
+
+    def is_not_element_present(self, locator, timeout=4):
+        try:
+            wait(self.browser, timeout).until(EC.presence_of_element_located((locator)))
+        except TimeoutException:
+            return True
+
+        return False
+
+    def is_disappeared(self, locator, timeout=4):
+        try:
+            wait(self.browser, timeout, 1, TimeoutException). \
+                until_not(EC.presence_of_element_located((locator)))
+        except TimeoutException:
+            return False
+
+        return True
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert

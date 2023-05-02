@@ -22,4 +22,3 @@ class ProductPageLocators:
     PRODUCT_NAME_FROM_BOOK = (By.CSS_SELECTOR, '#default > div.container-fluid.page > div > ul > li.active')
     PRODUCT_NAME = (By.TAG_NAME, "h1")
     PRODUCT_ADDED_TO_BASKET = (By.CSS_SELECTOR, '#messages > div:nth-child(1) > div')
-
