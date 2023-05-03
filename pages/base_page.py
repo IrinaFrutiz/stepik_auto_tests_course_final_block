@@ -3,8 +3,11 @@ from selenium.common.exceptions import NoSuchElementException, NoAlertPresentExc
 from selenium.webdriver.support.wait import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from pages.locators import BasePageLocators
+
 
 class BasePage():
+    locators = BasePageLocators
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
@@ -17,28 +20,28 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
-    def is_element_present(self, locator):
+    def is_element_present(self, value):
         try:
-            self.browser.find_element(locator)
+            self.browser.find_element(value)
         except (NoSuchElementException):
             return False
         return True
 
-    def element_is_visible(self, locator, timeout=10):
-        return wait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
+    def element_is_visible(self, value, timeout=10):
+        return wait(self.browser, timeout).until(EC.visibility_of_element_located(value))
 
-    def is_not_element_present(self, locator, timeout=4):
+    def is_not_element_present(self, value, timeout=4):
         try:
-            wait(self.browser, timeout).until(EC.presence_of_element_located((locator)))
+            wait(self.browser, timeout).until(EC.presence_of_element_located((value)))
         except TimeoutException:
             return True
 
         return False
 
-    def is_disappeared(self, locator, timeout=4):
+    def is_disappeared(self, by, value, timeout=4):
         try:
             wait(self.browser, timeout, 1, TimeoutException). \
-                until_not(EC.presence_of_element_located((locator)))
+                until_not(EC.presence_of_element_located((by, value)))
         except TimeoutException:
             return False
 
@@ -58,4 +61,10 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")
 
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
 
+    def should_be_login_link(self):
+        assert self.element_is_visible(self.locators.LOGIN_LINK),\
+            "Login link is not presented"
