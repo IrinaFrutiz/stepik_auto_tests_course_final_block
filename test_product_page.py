@@ -106,7 +106,6 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.should_no_massage_after_adding_product_to_basket()
 
-
     def test_user_can_add_product_to_basket_new_year(self, browser):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
         page = ProductPage(browser, link)
