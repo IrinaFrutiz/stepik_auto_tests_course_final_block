@@ -44,8 +44,10 @@ class ProductPage(BasePage):
 
     def should_no_massage_after_adding_product_to_basket(self):
         assert self.is_not_element_present(self.locators.PRODUCT_ADDED_TO_BASKET), \
-            f"Can't be success masage after adding product to the basket"
+            f"Can't be success message after adding product to the basket"
 
     def should_desappeared_massage_after_adding_product_to_basket(self):
         assert self.is_disappeared(*ProductPageLocators.PRODUCT_ADDED_TO_BASKET), \
         f"The success message don't desappear"
+
+

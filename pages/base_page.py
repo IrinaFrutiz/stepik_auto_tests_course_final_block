@@ -30,18 +30,18 @@ class BasePage():
     def element_is_visible(self, value, timeout=10):
         return wait(self.browser, timeout).until(EC.visibility_of_element_located(value))
 
-    def is_not_element_present(self, value, timeout=4):
+    def is_not_element_present(self, locator, timeout=4):
         try:
-            wait(self.browser, timeout).until(EC.presence_of_element_located((value)))
+            wait(self.browser, timeout).until(EC.presence_of_element_located((locator)))
         except TimeoutException:
             return True
 
         return False
 
-    def is_disappeared(self, by, value, timeout=4):
+    def is_disappeared(self, value, timeout=4):
         try:
             wait(self.browser, timeout, 1, TimeoutException). \
-                until_not(EC.presence_of_element_located((by, value)))
+                until_not(EC.presence_of_element_located((value)))
         except TimeoutException:
             return False
 
@@ -68,3 +68,7 @@ class BasePage():
     def should_be_login_link(self):
         assert self.element_is_visible(self.locators.LOGIN_LINK),\
             "Login link is not presented"
+
+    def go_to_view_basket(self):
+        button = self.browser.find_element(*BasePageLocators.VIEW_BASKET)
+        button.click()
