@@ -33,10 +33,35 @@ class ProductPage(BasePage):
         f'{sum_book.text} is not equal to {sum_basket.text}'
 
     def check_message_book_added_to_basket(self):
+        languages = {
+            "ar": " has been added to your basket.",
+            "ca": " s'ha afegit a la seva cistella.",
+            "cs": " byla přidána do vašeho košíku.",
+            "da": " er lagt i din indkøbskurv.",
+            "de": " wurde Ihrem Warenkorb hinzugefügt.",
+            "en-gb": " has been added to your basket.",
+            "el": " has been added to your basket.",
+            "es": " ha sido añadido al carrito.",
+            "fi": " lisätty koriisi.",
+            "fr": " a été ajouté à votre panier.",
+            "it": " byl přidán do vašeho košíku.",
+            "ko": "이(가) 장바구니에 추가되었습니다.",
+            "nl": " is toegevoegd aan je winkelmand.",
+            "pl": " został dodany do koszyka.",
+            "pt": " foi adicionado ao seu carrinho.",
+            "pt-br": " foi adicionado à sua cesta.",
+            "ro": " a fost adaugat in cos.",
+            "ru": " был добавлен в вашу корзину.",
+            "sk": " bol pridaný do košíka.",
+            "uk": " було додано до Вашого кошику.",
+            "zh-cn": " has been added to your basket.",
+        }
+        language = self.browser.execute_script(
+            "return window.navigator.userLanguage || window.navigator.language")
         messages = self.element_is_visible(self.locators.PRODUCT_ADDED_TO_BASKET)
         book_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
-        expected_message = f"{book_name.text} has been added to your basket."
-        assert (messages.text) == expected_message, \
+        expected_message = f"{book_name.text}{languages[language]}"
+        assert expected_message in (messages.text), \
         f'{messages.text} is not {expected_message}'
     def should_not_be_success_message(self):
         assert self.is_not_element_present(self.locators.PRODUCT_ADDED_TO_BASKET), \
