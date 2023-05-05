@@ -104,7 +104,7 @@ class TestUserAddToBasketFromProductPage():
         page.should_no_massage_after_adding_product_to_basket()
 
     @pytest.mark.need_review
-    def test_user_can_add_product_to_basket_new_year(self, browser):
+    def test_user_can_add_product_to_basket(self, browser):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
         page = ProductPage(browser, link)
         page.open()
