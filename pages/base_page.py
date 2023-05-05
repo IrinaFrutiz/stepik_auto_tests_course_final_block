@@ -66,7 +66,7 @@ class BasePage():
         link.click()
 
     def should_be_login_link(self):
-        assert self.element_is_visible(self.locators.LOGIN_LINK),\
+        assert self.browser.find_element(*BasePageLocators.LOGIN_LINK),\
             "Login link is not presented"
 
     def go_to_view_basket(self):
