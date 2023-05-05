@@ -37,4 +37,4 @@ class BasketPage(BasePage):
             "return window.navigator.userLanguage || window.navigator.language")
         message = self.browser.find_element(*BasePageLocators.EMPTY_LINK)
         assert languages[language] in message.text, \
-        f'{message.text} is not {languages[language]}'
+        f'{message.text} is not contain {languages[language]}'

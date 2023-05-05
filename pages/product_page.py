@@ -64,6 +64,7 @@ class ProductPage(BasePage):
         expected_message = f"{book_name.text}{languages[language]}"
         assert expected_message in (messages.text), \
         f'{messages.text} is not {expected_message}'
+
     def should_not_be_success_message(self):
         assert self.is_not_element_present(self.locators.PRODUCT_ADDED_TO_BASKET), \
             "Success message is presented, but should not be"
