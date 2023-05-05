@@ -27,7 +27,7 @@ class ProductPage(BasePage):
             f"Can't find button and click Add to basket"
 
     def should_be_equal_sum_on_basket_and_book(self):
-        sum_basket = self.element_is_visible(self.locators.PRODUCT_BASKET_PRICE)
+        sum_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_BASKET_PRICE)
         sum_book = self.browser.find_element(*ProductPageLocators.PRODUCT_BOOK_PRICE)
         assert sum_book.text == sum_basket.text,\
         f'{sum_book.text} is not equal to {sum_basket.text}'

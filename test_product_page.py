@@ -1,6 +1,7 @@
 import pytest
 from pages.base_page import BasePage
 from pages.basket_page import BasketPage
+from pages.locators import ProductPageLocators
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 import time
@@ -16,7 +17,7 @@ def test_guest_can_add_product_to_basket_new_year(browser, link):
     page.should_click_to_button_add_to_basket()
     page.solve_quiz_and_get_code()
     page.check_message_book_added_to_basket()
-    page.should_be_equal_sum_on_basket_and_book
+    page.should_be_equal_sum_on_basket_and_book()
 
 @pytest.mark.need_review
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
@@ -36,7 +37,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.should_click_to_button_add_to_basket()
     page.solve_quiz_and_get_code()
     page.check_message_book_added_to_basket()
-    page.should_be_equal_sum_on_basket_and_book
+    page.should_be_equal_sum_on_basket_and_book()
 
 @pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
@@ -112,6 +113,6 @@ class TestUserAddToBasketFromProductPage():
         page.should_click_to_button_add_to_basket()
         page.solve_quiz_and_get_code()
         page.check_message_book_added_to_basket()
-        page.should_be_equal_sum_on_basket_and_book
+        page.should_be_equal_sum_on_basket_and_book()
 
 

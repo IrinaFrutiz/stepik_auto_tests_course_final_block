@@ -23,7 +23,7 @@ class LoginPageLocators:
 class ProductPageLocators:
     PRODUCT_ADD_TO_BASKET = (By.CLASS_NAME, "btn-add-to-basket")
     PRODUCT_BOOK_PRICE = (By.CSS_SELECTOR, "p.price_color")
-    PRODUCT_BASKET_PRICE = (By.XPATH, '//*[@id="default"]/header/div[1]/div/div[2]/text()')
+    PRODUCT_BASKET_PRICE = (By.CSS_SELECTOR, '#messages > div.alert.alert-safe.alert-noicon.alert-info.fade.in > div > p:nth-child(1) > strong')
     PRODUCT_NAME_FROM_BOOK = (By.CSS_SELECTOR, '#default > div.container-fluid.page > div > ul > li.active')
     PRODUCT_NAME = (By.TAG_NAME, "h1")
     PRODUCT_ADDED_TO_BASKET = (By.CSS_SELECTOR, '#messages > div:nth-child(1) > div')
