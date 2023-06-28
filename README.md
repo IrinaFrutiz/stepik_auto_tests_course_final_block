@@ -1,6 +1,6 @@
 # Test Automation Repository
 
-This repository contains automated tests for web applications using Selenium and pytest.
+This repository contains automated tests for web application using Selenium and pytest.
 
 ## Prerequisites
 
