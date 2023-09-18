@@ -2,7 +2,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
-# from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 
 def pytest_addoption(parser):
@@ -14,17 +15,20 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="function")
 def browser(request):
         browser_name = request.config.getoption("browser_name")
-        user_language = request.config.getoption("language")
-        options = Options()
-        options.add_experimental_option(
+        user_language = request.config.getoption("language", default="en-gb")
+        chrome_options = Options()
+        # chrome_options.add_argument("--prefs=intl.accept_languages=en-gb")
+        chrome_options.add_experimental_option(
             'prefs', {'intl.accept_languages': user_language})
+        # chrome_options.add_argument(f"--language={user_language}")
 
         options_firefox = OptionsFirefox()
         options_firefox.set_preference("intl.accept_languages", user_language)
         browser = None
         if browser_name == "chrome":
             print("\nstart chrome browser for test..")
-            browser = webdriver.Chrome(options=options)
+            browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+
         elif browser_name == "firefox":
             print("\nstart firefox browser for test..")
             browser = webdriver.Firefox(options=options_firefox)
@@ -66,4 +70,3 @@ def browser(request):
 #         return language
 #     else:
 #         raise pytest.UsageError("Choose the right language!")
-
