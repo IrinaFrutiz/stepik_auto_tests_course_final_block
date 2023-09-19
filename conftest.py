@@ -4,6 +4,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.service import Service as FFService
 
 
 def pytest_addoption(parser):
@@ -31,7 +33,7 @@ def browser(request):
 
         elif browser_name == "firefox":
             print("\nstart firefox browser for test..")
-            browser = webdriver.Firefox(options=options_firefox)
+            browser = webdriver.Firefox(service=FFService(GeckoDriverManager().install()), options=options_firefox)
         else:
             raise pytest.UsageError("--browser_name should be chrome or firefox")
         # if you need open browser on all window
