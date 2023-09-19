@@ -6,8 +6,6 @@ This repository contains automated tests for web application using Selenium and 
 
 Before running the tests, make sure you have the following:
 
-- Chrome WebDriver: Download the latest version from [here](https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.90/) and place it in the `c:\chromedriver\` folder.
-- Firefox WebDriver (geckodriver): Download the latest version from [here](https://github.com/mozilla/geckodriver/releases) and place it in the `c:\geckodriver\` folder.
 - Python packages: Install Selenium and pytest by running the following command:
 
     ```
@@ -19,7 +17,9 @@ Before running the tests, make sure you have the following:
 To run the tests, use the following command:
 
 - pytest -v --tb=line --language=en -m need_review
+- pytest -v --tb=line --language=fr
 - pytest -v
+- pytest -v --browser_name=firefox 
 
 By default, the tests will be executed using the Chrome browser and the `en-gb` language.
 
