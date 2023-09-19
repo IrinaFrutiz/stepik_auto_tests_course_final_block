@@ -4,6 +4,7 @@ from .locators import ProductPageLocators
 
 class ProductPage(BasePage):
     locators = ProductPageLocators()
+
     def should_be_product_page(self):
         self.should_be_promo_in_url()
         self.should_check_book_name()
@@ -62,7 +63,7 @@ class ProductPage(BasePage):
         messages = self.element_is_visible(self.locators.PRODUCT_ADDED_TO_BASKET)
         book_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
         expected_message = f"{book_name.text}{languages[language]}"
-        assert expected_message in (messages.text), \
+        assert expected_message in messages.text, \
         f'{messages.text} is not {expected_message}'
 
     def should_not_be_success_message(self):
@@ -76,5 +77,3 @@ class ProductPage(BasePage):
     def should_desappeared_massage_after_adding_product_to_basket(self):
         assert self.is_disappeared(*ProductPageLocators.PRODUCT_ADDED_TO_BASKET), \
         f"The success message don't desappear"
-
-

@@ -4,6 +4,7 @@ from .locators import LoginPageLocators
 
 class LoginPage(BasePage):
     locators = LoginPageLocators
+
     def should_be_login_page(self):
         self.should_be_login_url()
         self.should_be_login_form()
@@ -11,7 +12,7 @@ class LoginPage(BasePage):
 
     def should_be_login_url(self):
         url = self.browser.current_url
-        assert  "/accounts/login/" in url,\
+        assert "/accounts/login/" in url,\
         f'{url} do not contain /accounts/login/'
 
     def should_be_login_form(self):
