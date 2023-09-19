@@ -8,9 +8,13 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.service import Service as FFService
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
+# Edge
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.edge.options import Options as EdgeOptions
 
 
-def pytest_adoption(parser):
+def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default='chrome',
                      help="Choose browser: chrome or firefox")
     parser.addoption('--language', action='store', default='en-gb',
@@ -28,6 +32,10 @@ def browser(request):
     options_firefox = OptionsFirefox()
     options_firefox.set_preference("intl.accept_languages", user_language)
 
+    options_edge = EdgeOptions()
+    options_edge.add_experimental_option(
+        'prefs', {'intl.accept_languages': user_language}
+    )
     if browser_name == "chrome":
         print("\nstart chrome browser for test..")
         browser = webdriver.Chrome(
@@ -35,10 +43,17 @@ def browser(request):
             options=chrome_options)
 
     elif browser_name == "firefox":
-        print("\nstart firefox browser for test..")
+        print("\nstart Firefox browser for test..")
         browser = webdriver.Firefox(
             service=FFService(GeckoDriverManager().install()),
             options=options_firefox)
+
+    elif browser_name == "edge":
+        print("\nstart Edge browser for test..")
+        browser = webdriver.Edge(
+            service=EdgeService(EdgeChromiumDriverManager().install()),
+            options=options_edge)
+
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     browser.maximize_window()
