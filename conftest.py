@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.service import Service as FFService
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
 
 
-def pytest_addoption(parser):
+def pytest_adoption(parser):
     parser.addoption('--browser_name', action='store', default='chrome',
                      help="Choose browser: chrome or firefox")
     parser.addoption('--language', action='store', default='en-gb',
