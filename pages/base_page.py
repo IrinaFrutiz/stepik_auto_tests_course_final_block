@@ -6,8 +6,9 @@ from selenium.common.exceptions import TimeoutException
 from pages.locators import BasePageLocators
 
 
-class BasePage():
+class BasePage:
     locators = BasePageLocators
+
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
@@ -18,7 +19,7 @@ class BasePage():
     def is_element_present(self, value):
         try:
             self.browser.find_element(value)
-        except (NoSuchElementException):
+        except NoSuchElementException:
             return False
         return True
 
@@ -36,7 +37,7 @@ class BasePage():
     def is_disappeared(self, value, timeout=4):
         try:
             wait(self.browser, timeout, 1, TimeoutException). \
-                until_not(EC.presence_of_element_located((value)))
+                until_not(EC.presence_of_element_located(value))
         except TimeoutException:
             return False
 
