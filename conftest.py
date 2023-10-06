@@ -37,19 +37,16 @@ def browser(request):
         'prefs', {'intl.accept_languages': user_language}
     )
     if browser_name == "chrome":
-        print("\nstart chrome browser for test..")
         browser = webdriver.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
             options=chrome_options)
 
     elif browser_name == "firefox":
-        print("\nstart Firefox browser for test..")
         browser = webdriver.Firefox(
             service=FFService(GeckoDriverManager().install()),
             options=options_firefox)
 
     elif browser_name == "edge":
-        print("\nstart Edge browser for test..")
         browser = webdriver.Edge(
             service=EdgeService(EdgeChromiumDriverManager().install()),
             options=options_edge)
@@ -58,5 +55,4 @@ def browser(request):
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     browser.maximize_window()
     yield browser
-    print(f"\nquit {browser_name}..")
     browser.quit()
