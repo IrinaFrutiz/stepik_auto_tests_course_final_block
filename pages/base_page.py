@@ -1,4 +1,6 @@
 import math
+
+import allure
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
 from selenium.webdriver.support.wait import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +15,7 @@ class BasePage:
         self.browser = browser
         self.url = url
 
+    @allure.step('open the URL')
     def open(self):
         self.browser.get(self.url)
 
@@ -43,12 +46,14 @@ class BasePage:
 
         return True
 
+    @allure.step('the quiz')
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(int(x))))))
-        alert.send_keys(answer)
-        alert.accept()
+        with allure.step('solving the quiz'):
+            alert.send_keys(answer)
+            alert.accept()
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text
@@ -57,19 +62,22 @@ class BasePage:
         except NoAlertPresentException:
             print("No second alert presented")
 
+    @allure.step('go to login page')
     def go_to_login_page(self):
-        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        link.click()
-        print("Test go_to_login_page Passed")
+        with allure.step('go to login page'):
+            self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
 
+    @allure.step('check the login link')
     def should_be_login_link(self):
         assert self.browser.find_element(*BasePageLocators.LOGIN_LINK),\
             "Login link is not presented"
 
+    @allure.step('check a basket button')
     def go_to_view_basket(self):
-        button = self.browser.find_element(*BasePageLocators.VIEW_BASKET)
-        button.click()
+        with allure.step('click a basket button'):
+            self.browser.find_element(*BasePageLocators.VIEW_BASKET).click()
 
+    @allure.step('check the user is authorized')
     def should_be_authorized_user(self):
-        assert self.element_is_visible(self.locators.USER_ICON), "User icon is not presented," \
-                                                                     " probably unauthorised user"
+        assert self.element_is_visible(self.locators.USER_ICON),\
+            "User icon is not presented probably unauthorised user"

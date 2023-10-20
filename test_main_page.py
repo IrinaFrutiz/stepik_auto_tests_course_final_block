@@ -1,10 +1,8 @@
 import allure
 import pytest
-from pages.locators import BasePageLocators
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.basket_page import BasketPage
-# import conftest
 
 
 @pytest.mark.login_guest

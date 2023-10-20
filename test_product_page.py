@@ -5,7 +5,6 @@ from pages.basket_page import BasketPage
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 import time
-import conftest
 
 
 @allure.title("Check guest_can_add_product_to_basket_new_year")
@@ -55,7 +54,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.open()
     page.should_click_to_button_add_to_basket()
     page.solve_quiz_and_get_code()
-    page.should_no_massage_after_adding_product_to_basket()
+    page.should_no_message_after_adding_product_to_basket()
 
 
 @allure.title("Check guest_cant_see_success_message")
@@ -63,7 +62,7 @@ def test_guest_cant_see_success_message(browser):
     link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
     page = ProductPage(browser, link)
     page.open()
-    page.should_no_massage_after_adding_product_to_basket()
+    page.should_no_message_after_adding_product_to_basket()
 
 
 @allure.title("Check message_disappeared_after_adding_product_to_basket")
@@ -74,7 +73,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.open()
     page.should_click_to_button_add_to_basket()
     page.solve_quiz_and_get_code()
-    page.should_desappeared_massage_after_adding_product_to_basket()
+    page.should_disappeared_massage_after_adding_product_to_basket()
 
 
 @allure.title("Check guest_should_see_login_link_on_product_page")
@@ -119,14 +118,14 @@ class TestUserAddToBasketFromProductPage:
         self.login = BasePage(browser, link)
         self.login.should_be_authorized_user()
 
-    @allure.title("Check user_cant_see_success_message")
+    @allure.title("Check user can't see success message")
     def test_user_cant_see_success_message(self, browser):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
         page = ProductPage(browser, link)
         page.open()
-        page.should_no_massage_after_adding_product_to_basket()
+        page.should_no_message_after_adding_product_to_basket()
 
-    @allure.title("Check user_can_add_product_to_basket")
+    @allure.title("Check user can add a product to the basket")
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
