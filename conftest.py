@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium import webdriver
 # Chrome
@@ -55,4 +56,7 @@ def browser(request):
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     browser.maximize_window()
     yield browser
+    attach = browser.get_screenshot_as_png()
+    from datetime import datetime
+    allure.attach(attach, name=f"Screenshot {datetime.today()}", attachment_type=allure.attachment_type.PNG)
     browser.quit()
