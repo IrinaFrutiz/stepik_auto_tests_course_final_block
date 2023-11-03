@@ -26,35 +26,37 @@ def pytest_addoption(parser):
 def browser(request):
     browser_name = request.config.getoption("browser_name")
     user_language = request.config.getoption("language", default="en-gb")
-    chrome_options = Options()
-    chrome_options.add_experimental_option(
-        'prefs', {'intl.accept_languages': user_language})
 
-    options_firefox = OptionsFirefox()
-    options_firefox.set_preference("intl.accept_languages", user_language)
-
-    options_edge = EdgeOptions()
-    options_edge.add_experimental_option(
-        'prefs', {'intl.accept_languages': user_language}
-    )
     if browser_name == "chrome":
+        options_chrome = Options()
+        options_chrome.add_experimental_option(
+            'prefs', {'intl.accept_languages': user_language})
+        options_chrome.add_argument("--window-size=1920,1080")
         browser = webdriver.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
-            options=chrome_options)
+            options=options_chrome)
 
     elif browser_name == "firefox":
+        options_firefox = OptionsFirefox()
+        options_firefox.set_preference("intl.accept_languages", user_language)
+        options_firefox.add_argument("--window-size=1920,1080")
         browser = webdriver.Firefox(
             service=FFService(GeckoDriverManager().install()),
             options=options_firefox)
 
     elif browser_name == "edge":
+        options_edge = EdgeOptions()
+        options_edge.add_experimental_option(
+            'prefs', {'intl.accept_languages': user_language}
+        )
+        options_edge.add_argument("--window-size=1920,1080")
         browser = webdriver.Edge(
             service=EdgeService(EdgeChromiumDriverManager().install()),
             options=options_edge)
 
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
-    browser.maximize_window()
+    
     yield browser
     attach = browser.get_screenshot_as_png()
     from datetime import datetime
