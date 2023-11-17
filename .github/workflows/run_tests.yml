@@ -3,6 +3,11 @@ name: Automated tests
 on:
   push
 
+permissions:
+  content: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
