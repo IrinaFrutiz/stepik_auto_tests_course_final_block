@@ -2,6 +2,10 @@
 
 This repository contains automated tests for web application using Selenium and pytest.
 
+## Allure report
+
+[You can find allure report here.](https://irinafrutiz.github.io/stepik_auto_tests_course_final_block/)
+
 ## Prerequisites
 
 Before running the tests, make sure you have the following:
@@ -11,7 +15,7 @@ Before running the tests, make sure you have the following:
     ```
     pip install -r requirements.txt
     ```
-
+    
 ## Running the Tests
 
 To run the tests, use the following command:
