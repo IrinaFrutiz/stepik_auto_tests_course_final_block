@@ -38,12 +38,10 @@ jobs:
     needs: test
     name: Generate report
     steps:
-
       - uses: actions/setup-java@v3
       with:
         distribution: 'microsoft'
         java-version: '17'
-
       - run: sudo apt-add-repository ppa:qameta/allure && sudo apt-get update && sudo apt-get install allure
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
