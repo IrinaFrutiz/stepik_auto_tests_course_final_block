@@ -39,10 +39,10 @@ jobs:
     name: Generate report
     steps:
       - uses: actions/setup-java@v3
-      with:
-        distribution: 'microsoft'
-        java-version: '17'
-      - run: sudo apt-add-repository ppa:qameta/allure && sudo apt-get update && sudo apt-get install allure
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - run:
