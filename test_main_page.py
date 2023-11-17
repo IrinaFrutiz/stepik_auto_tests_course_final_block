@@ -8,7 +8,8 @@ from pages.basket_page import BasketPage
 @pytest.mark.login_guest
 @allure.feature("LoginFromMainPage")
 class TestLoginFromMainPage:
-    @allure.title("Check go to login page")
+    @allure.title("Check go to login page by guest")
+    @allure.severity(severity_level="CRITICAL")
     def test_guest_can_go_to_login_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com"
         page = MainPage(browser, link)
