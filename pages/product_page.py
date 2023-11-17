@@ -49,6 +49,7 @@ class ProductPage(BasePage):
             "da": " er lagt i din indkøbskurv.",
             "de": " wurde Ihrem Warenkorb hinzugefügt.",
             "en-gb": " has been added to your basket.",
+            "en-US": " has been added to your basket.",
             "en": " has been added to your basket.",
             "el": " has been added to your basket.",
             "es": " ha sido añadido al carrito.",
