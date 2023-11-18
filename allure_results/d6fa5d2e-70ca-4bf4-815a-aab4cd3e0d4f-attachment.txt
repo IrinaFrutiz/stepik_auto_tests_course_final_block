@@ -1,5 +1,0 @@
-
-start chrome browser for test..
-Test go_to_login_page Passed
-
-quit chrome..
