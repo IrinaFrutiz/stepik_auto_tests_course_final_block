@@ -1,0 +1,5 @@
+
+start chrome browser for test..
+Your code: Поздравляем, вы справились! Вставьте это число в поле ответа на Stepik: 27.296022058223016
+
+quit chrome..
