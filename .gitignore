@@ -124,6 +124,7 @@ celerybeat.pid
 .venv
 env/
 venv/
+allure_results/
 ENV/
 env.bak/
 venv.bak/
