@@ -41,6 +41,7 @@ jobs:
             allure-results
           retention-days: 7
   test:
+    needs: download-history
     runs-on: ubuntu-latest
 
     steps:
