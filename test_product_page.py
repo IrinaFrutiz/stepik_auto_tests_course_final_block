@@ -1,5 +1,6 @@
 import allure
 import pytest
+from faker import Faker
 from pages.base_page import BasePage
 from pages.basket_page import BasketPage
 from pages.login_page import LoginPage
@@ -110,8 +111,9 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
+        fake = Faker()
         link = 'https://selenium1py.pythonanywhere.com/ru/accounts/login/'
-        email = str(time.time()) + "@fakemail.org"
+        email = fake.email()
         self.login = LoginPage(browser, link)
         self.login.open()
         self.login.register_new_user(email)
