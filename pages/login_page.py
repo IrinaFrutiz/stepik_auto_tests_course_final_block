@@ -8,10 +8,19 @@ class LoginPage(BasePage):
 
     @allure.step('check a login page')
     def should_be_login_page(self):
+        self.should_be_login_button_top()
+        self.can_click_login_button_top()
         self.should_be_login_url()
         self.should_be_login_form()
         self.should_be_register_form()
 
+    @allure.step('shoud be login button at the top of the page')
+    def should_be_login_button_top(self):
+        self.element_is_visible(self.locators.LOGIN_BUTTON_TOP)
+
+    @allure.step('can ckick on login at the top of the page')
+    def can_click_login_button_top(self):
+        self.browser.find_element(*LoginPageLocators.LOGIN_BUTTON_TOP).click()
     @allure.step('check login url on a page')
     def should_be_login_url(self):
         url = self.browser.current_url
@@ -36,3 +45,8 @@ class LoginPage(BasePage):
             self.browser.find_element(*LoginPageLocators.REGISTER_CONFIRM_PASSWORD).send_keys(password)
         with allure.step('click register button'):
             self.browser.find_element(*LoginPageLocators.REGISTER_BUTTON).click()
+
+    @allure.step('user can click logout button')
+    def user_can_logout(self):
+        self.element_is_visible(self.locators.LOGOUT_BUTTON)
+        self.browser.find_element(*LoginPageLocators.LOGOUT_BUTTON).click()
