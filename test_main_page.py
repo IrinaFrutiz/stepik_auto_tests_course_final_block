@@ -30,7 +30,8 @@ class TestLoginFromMainPage:
         page.should_be_login_link()
 
 
-@allure.title("Check guest_should_be_login_page")
+@allure.title("Check guest can see login page")
+@allure.severity(severity_level="CRITICAL")
 def test_guest_should_be_login_page(browser):
     page = LoginPage(browser, link)
     page.should_be_login_page()
@@ -59,6 +60,8 @@ class TestsByUser:
         self.login = BasePage(browser, link)
         self.login.should_be_authorized_user()
 
+    @allure.title('User can login, logout and after check login page')
+    @allure.severity(severity_level="CRITICAL")
     def test_user_can_logout(self, browser):
         page = LoginPage(browser, link)
         page.user_can_logout()
