@@ -112,7 +112,7 @@ class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
         fake = Faker()
-        link = 'https://selenium1py.pythonanywhere.com/ru/accounts/login/'
+        link = 'https://selenium1py.pythonanywhere.com/accounts/login/'
         email = fake.email()
         self.login = LoginPage(browser, link)
         self.login.open()
