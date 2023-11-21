@@ -33,8 +33,8 @@ def test_guest_can_add_product_to_basket_new_year(browser, link):
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer5",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer6",
                                   pytest.param(
-                                    "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7",
-                                    marks=pytest.mark.xfail),
+                                      "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7",
+                                      marks=pytest.mark.xfail),
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"
                                   ])
@@ -104,6 +104,13 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket = BasketPage(browser, link)
     basket.check_basket_is_empty()
     basket.check_text_that_basket_is_empty()
+
+
+@allure.title('Faild test')
+@allure.severity('trivial')
+def test_fail_test(browser):
+    assert 2 == 1, \
+        f"Failed test 2 != 1"
 
 
 @allure.feature("Check UserAddToBasketFromProductPage")
