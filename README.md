@@ -6,13 +6,6 @@ This repository contains automated tests for the Oscar Sandbox(a site for traini
 
 [View the Allure report here.](https://irinafrutiz.github.io/stepik_auto_tests_course_final_block/)
 
-## Running automated tests on GitHub
-
-1. On the [Actions tab](https://github.com/IrinaFrutiz/stepik_auto_tests_course_final_block/actions/workflows/run_tests.yml), click "Run workflow."
-2. Choose the target (default is English and Chrome).
-3. Wait for all tests to complete.
-4. Open or refresh the page with the Allure report to view the new test results.
-
 ## Running Tests Locally
 
 1. Clone or download the project to your local machine.
