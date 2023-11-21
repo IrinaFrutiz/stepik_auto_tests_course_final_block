@@ -15,8 +15,8 @@ on:
           - cs_test
           - da_test
           - de_test
-          - en-gb_test
-          - en-US_test
+          - en-gb_test_and_Edge
+          - en-US_test_and_Firefox
           - el_test
           - es_test
           - fi_test
@@ -95,6 +95,17 @@ jobs:
           python-version: "3.10"
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
+      - name: Install Firefox
+        run: |
+          sudo apt-get update
+          sudo apt-get install firefox
+      - name: Install Edge
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+          sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+          sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+          sudo apt-get update
+          sudo apt-get install microsoft-edge-dev
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Download all workflow run artifacts
@@ -123,13 +134,13 @@ jobs:
         if: "github.event.inputs.deployment_target == 'de_test'"
         run: pytest --language=de --alluredir="allure-results"
         continue-on-error: true
-      - name: en-gb_test
-        if: "github.event.inputs.deployment_target == 'en-gb_test'"
-        run: pytest --language=en-gb --alluredir="allure-results"
+      - name: en-gb_test and Edge
+        if: "github.event.inputs.deployment_target == 'en-gb_test_and_Edge'"
+        run: pytest --language=en-gb --browser_name=edge --alluredir="allure-results"
         continue-on-error: true
-      - name: en-US_test
-        if: "github.event.inputs.deployment_target == 'en-US_test'"
-        run: pytest --language=en-US --alluredir="allure-results"
+      - name: en-US_test and Firefox
+        if: "github.event.inputs.deployment_target == 'en-US_test_and_Firefox'"
+        run: pytest --language=en-US --browser_name=firefox --alluredir="allure-results"
         continue-on-error: true
       - name: el_test
         if: "github.event.inputs.deployment_target == 'el_test'"

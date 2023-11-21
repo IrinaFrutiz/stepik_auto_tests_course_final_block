@@ -43,6 +43,7 @@ def browser(request):
         options_firefox = OptionsFirefox()
         options_firefox.set_preference("intl.accept_languages", user_language)
         options_firefox.add_argument("--window-size=1920,1080")
+        options_firefox.add_argument("--headless")
         browser = webdriver.Firefox(
             service=FFService(GeckoDriverManager().install()),
             options=options_firefox)
@@ -53,6 +54,7 @@ def browser(request):
             'prefs', {'intl.accept_languages': user_language}
         )
         options_edge.add_argument("--window-size=1920,1080")
+        options_edge.add_argument("--headless")
         browser = webdriver.Edge(
             service=EdgeService(EdgeChromiumDriverManager().install()),
             options=options_edge)
