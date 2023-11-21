@@ -22,6 +22,9 @@ class LoginPageLocators:
     REGISTER_CONFIRM_PASSWORD = (By.ID, "id_registration-password2")
     REGISTER_BUTTON = (By.NAME, 'registration_submit')
 
+    LOGIN_BUTTON_TOP = (By.ID, 'login_link')
+    LOGOUT_BUTTON = (By.ID, 'logout_link')
+
 
 class ProductPageLocators:
     PRODUCT_ADD_TO_BASKET = (By.XPATH, '//button[@value="Add to basket"]')
