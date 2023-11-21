@@ -1,7 +1,37 @@
 name: Automated tests
 
 on:
-  push
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default: en_test
+        type: choice
+        options:
+          - en_test
+          - ar_test
+          - ca_test
+          - cs_test
+          - da_test
+          - de_test
+          - en-gb_test
+          - en-US_test
+          - el_test
+          - es_test
+          - fi_test
+          - fr_test
+          - it_test
+          - ko_test
+          - nl_test
+          - pl_test
+          - pt_test
+          - pt-br_test
+          - ro_test
+          - ru_test
+          - sk_test
+          - uk_test
+          - zh-cn_test
 
 permissions:
   contents: read
@@ -18,6 +48,18 @@ jobs:
         with:
           python-version: "3.10"
       - run: >
+          ARTIFACT_ID=$(curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          "https://api.github.com/repos/IrinaFrutiz/stepik_auto_tests_course_final_block/actions/artifacts?name=allure-results" 
+          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          &&
+          curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          https://api.github.com/repos/IrinaFrutiz/stepik_auto_tests_course_final_block/actions/artifacts/$ARTIFACT_ID/zip 
+          -o artifacts.zip &&
           REPORT_ID=$(curl -L
           -H "Accept: application/vnd.github+json"
           -H "X-GitHub-Api-Version: 2022-11-28"
@@ -30,7 +72,7 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28"
           https://api.github.com/repos/IrinaFrutiz/stepik_auto_tests_course_final_block/actions/artifacts/$REPORT_ID/zip
           -o pages.zip
-      - run: mkdir allure-results
+      - run: mkdir allure-results && unzip artifacts.zip -d allure-results
       - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
       - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results
       - name: Store allure history
@@ -57,8 +99,97 @@ jobs:
         run: pip install -r requirements.txt
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
-      - name: Run tests
+      - name: en_test
+        if: "github.event.inputs.deployment_target == 'en_test'"
         run: pytest --alluredir="allure-results"
+        continue-on-error: true
+      - name: ar_test
+        if: "github.event.inputs.deployment_target == 'ar_test'"
+        run: pytest --language=ar --alluredir="allure-results"
+        continue-on-error: true
+      - name: ca_test
+        if: "github.event.inputs.deployment_target == 'ca_test'"
+        run: pytest --language=ca --alluredir="allure-results"
+        continue-on-error: true
+      - name: cs_test
+        if: "github.event.inputs.deployment_target == 'cs_test'"
+        run: pytest --language=cs --alluredir="allure-results"
+        continue-on-error: true
+      - name: da_test
+        if: "github.event.inputs.deployment_target == 'da_test'"
+        run: pytest --language=da --alluredir="allure-results"
+        continue-on-error: true
+      - name: de_test
+        if: "github.event.inputs.deployment_target == 'de_test'"
+        run: pytest --language=de --alluredir="allure-results"
+        continue-on-error: true
+      - name: en-gb_test
+        if: "github.event.inputs.deployment_target == 'en-gb_test'"
+        run: pytest --language=en-gb --alluredir="allure-results"
+        continue-on-error: true
+      - name: en-US_test
+        if: "github.event.inputs.deployment_target == 'en-US_test'"
+        run: pytest --language=en-US --alluredir="allure-results"
+        continue-on-error: true
+      - name: el_test
+        if: "github.event.inputs.deployment_target == 'el_test'"
+        run: pytest --language=el --alluredir="allure-results"
+        continue-on-error: true
+      - name: es_test
+        if: "github.event.inputs.deployment_target == 'es_test'"
+        run: pytest --language=es --alluredir="allure-results"
+        continue-on-error: true
+      - name: fi_test
+        if: "github.event.inputs.deployment_target == 'fi_test'"
+        run: pytest --language=fi --alluredir="allure-results"
+        continue-on-error: true
+      - name: fr_test
+        if: "github.event.inputs.deployment_target == 'fr_test'"
+        run: pytest --language=fr --alluredir="allure-results"
+        continue-on-error: true
+      - name: it_test
+        if: "github.event.inputs.deployment_target == 'it_test'"
+        run: pytest --language=it --alluredir="allure-results"
+        continue-on-error: true
+      - name: ko_test
+        if: "github.event.inputs.deployment_target == 'ko_test'"
+        run: pytest --language=ko --alluredir="allure-results"
+        continue-on-error: true
+      - name: nl_test
+        if: "github.event.inputs.deployment_target == 'nl_test'"
+        run: pytest --language=nl --alluredir="allure-results"
+        continue-on-error: true
+      - name: pl_test
+        if: "github.event.inputs.deployment_target == 'pl_test'"
+        run: pytest --language=pl --alluredir="allure-results"
+        continue-on-error: true
+      - name: pt_test
+        if: "github.event.inputs.deployment_target == 'pt_test'"
+        run: pytest --language=pt --alluredir="allure-results"
+        continue-on-error: true
+      - name: pt-br_test
+        if: "github.event.inputs.deployment_target == 'pt-br_test'"
+        run: pytest --language=pt-br --alluredir="allure-results"
+        continue-on-error: true
+      - name: ro_test
+        if: "github.event.inputs.deployment_target == 'ro_test'"
+        run: pytest --language=ro --alluredir="allure-results"
+        continue-on-error: true
+      - name: ru_test
+        if: "github.event.inputs.deployment_target == 'ru_test'"
+        run: pytest --language=ru --alluredir="allure-results"
+        continue-on-error: true
+      - name: sk_test
+        if: "github.event.inputs.deployment_target == 'sk_test'"
+        run: pytest --language=sk --alluredir="allure-results"
+        continue-on-error: true
+      - name: uk_test
+        if: "github.event.inputs.deployment_target == 'uk_test'"
+        run: pytest --language=uk --alluredir="allure-results"
+        continue-on-error: true
+      - name: zh-cn_test
+        if: "github.event.inputs.deployment_target == 'zh-cn_test'"
+        run: pytest --language=zh-cn --alluredir="allure-results"
         continue-on-error: true
       - name: Store allure results
         uses: actions/upload-artifact@v3
