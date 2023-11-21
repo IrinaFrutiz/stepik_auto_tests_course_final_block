@@ -21,24 +21,24 @@ class ProductPage(BasePage):
 
     @allure.step('check book names matching')
     def should_check_book_name(self):
-        book_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
-        book_name_top = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_FROM_BOOK)
-        assert book_name.text == book_name_top.text, \
-            f"{book_name.text} not {book_name_top.text}"
+        BOOK_NAME = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
+        BOOK_NAME_TOP = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_FROM_BOOK)
+        assert BOOK_NAME.text == BOOK_NAME_TOP.text, \
+            f"{BOOK_NAME.text} not {BOOK_NAME_TOP.text}"
 
     @allure.step('add a book to a basket')
     def should_click_to_button_add_to_basket(self):
-        button = self.browser.find_element(*ProductPageLocators.PRODUCT_ADD_TO_BASKET)
-        button.click()
-        assert button, \
+        BUTTON = self.browser.find_element(*ProductPageLocators.PRODUCT_ADD_TO_BASKET)
+        BUTTON.click()
+        assert BUTTON, \
             f"Can't find button and click Add to basket"
 
     @allure.step('check sum on the basket and the book')
     def should_be_equal_sum_on_basket_and_book(self):
-        sum_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_BASKET_PRICE).text
-        sum_book = self.browser.find_element(*ProductPageLocators.PRODUCT_BOOK_PRICE).text
-        assert sum_book == sum_basket,\
-            f'{sum_book} is not equal to {sum_basket}'
+        SUM_BASKET = self.browser.find_element(*ProductPageLocators.PRODUCT_BASKET_PRICE).text
+        SUM_BOOK = self.browser.find_element(*ProductPageLocators.PRODUCT_BOOK_PRICE).text
+        assert SUM_BOOK == SUM_BASKET,\
+            f'{SUM_BOOK} is not equal to {SUM_BASKET}'
 
     @allure.step('check a message that the book added to the basket')
     def check_message_book_added_to_basket(self):
@@ -69,11 +69,11 @@ class ProductPage(BasePage):
         }
         language = self.browser.execute_script(
             "return window.navigator.userLanguage || window.navigator.language")
-        messages = self.element_is_visible(self.locators.PRODUCT_ADDED_TO_BASKET)
-        book_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
-        expected_message = f"{book_name.text}{languages[language]}"
-        assert expected_message in messages.text, \
-            f'{messages.text} is not {expected_message}'
+        MESSAGES = self.element_is_visible(self.locators.PRODUCT_ADDED_TO_BASKET)
+        BOOK_NAME = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
+        EXPECTED_MESSAGE = f"{BOOK_NAME.text}{languages[language]}"
+        assert EXPECTED_MESSAGE in MESSAGES.text, \
+            f'{MESSAGES.text} is not {EXPECTED_MESSAGE}'
 
     @allure.step('check no message that the book added to the basket')
     def should_not_be_success_message(self):
