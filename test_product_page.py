@@ -108,7 +108,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 
 @allure.title('Faild test')
 @allure.severity('trivial')
-def test_fail_test(browser):
+def test_fail_test():
     assert 2 == 1, \
         f"Failed test 2 != 1"
 
