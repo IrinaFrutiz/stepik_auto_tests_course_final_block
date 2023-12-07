@@ -10,11 +10,6 @@ on:
         type: choice
         options:
           - en_test
-          - ar_test
-          - ca_test
-          - cs_test
-          - da_test
-          - de_test
           - en-gb_test_and_Edge
           - en-US_test_and_Firefox
           - el_test
