@@ -1,15 +1,15 @@
 import allure
-
-from pages.base_page import BasePage
-from pages.locators import BasePageLocators
+from base.base_page import BasePage
 
 
 class BasketPage(BasePage):
-    locators = BasePageLocators
+
+    TOTAL = ('css selector', '#basket_formset > div')
+    EMPTY_LINK = ('id', 'content_inner')
 
     @allure.step('check the basket is empty')
     def check_basket_is_empty(self):
-        assert self.is_not_element_present(self.locators.TOTAL), \
+        assert self.element_is_not_present(self.TOTAL), \
             "Basket is not empty"
 
     @allure.step('check the text that the basket is empty')
@@ -41,6 +41,6 @@ class BasketPage(BasePage):
         }
         language = self.browser.execute_script(
             "return window.navigator.userLanguage || window.navigator.language")
-        message = self.browser.find_element(*BasePageLocators.EMPTY_LINK)
+        message = self.browser.find_element(*self.EMPTY_LINK)
         assert languages[language] in message.text, \
             f'{message.text} is not contain {languages[language]}'

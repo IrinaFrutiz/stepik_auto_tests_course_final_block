@@ -1,11 +1,7 @@
 import allure
 import pytest
 from faker import Faker
-from pages.base_page import BasePage
-from pages.basket_page import BasketPage
-from pages.login_page import LoginPage
-from pages.product_page import ProductPage
-import time
+from base.base_test import BasketPage, LoginPage, ProductPage, BasePage
 
 
 @allure.title("Check guest_can_add_product_to_basket_new_year")
@@ -15,7 +11,6 @@ import time
 def test_guest_can_add_product_to_basket_new_year(browser, link):
     page = ProductPage(browser, link)
     page.open()
-    time.sleep(10)
     page.should_be_product_page()
     page.should_click_to_button_add_to_basket()
     page.solve_quiz_and_get_code()
@@ -106,11 +101,16 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket.check_text_that_basket_is_empty()
 
 
-@allure.title('Faild test')
+@allure.title('Failed test')
 @allure.severity('trivial')
-def test_fail_test():
-    assert 2 == 1, \
-        f"Failed test 2 != 1"
+def test_fail_test(browser):
+    link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-age-of-the-pussyfoot_89/'
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_check_book_name()
+    page.should_click_to_button_add_to_basket()
+    page.should_click_to_button_add_to_basket()
+    page.should_be_equal_sum_on_basket_and_book()
 
 
 @allure.feature("Check UserAddToBasketFromProductPage")

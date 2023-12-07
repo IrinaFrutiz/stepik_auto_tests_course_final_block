@@ -1,46 +1,38 @@
 import math
 
 import allure
-from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
-from selenium.webdriver.support.wait import WebDriverWait as wait
+from selenium.common.exceptions import NoAlertPresentException, TimeoutException
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-from pages.locators import BasePageLocators
 
 
 class BasePage:
-    locators = BasePageLocators
+
+    LOGIN_LINK = ('id', 'login_link')
+    LOGOUT_BUTTON = ('id', 'logout_link')
+    VIEW_BASKET = ('xpath', '//a[contains(text(), "View basket")]')
+    USER_ICON = ('css selector', '.icon-user')
 
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
+        self.wait = WebDriverWait(browser, 15, poll_frequency=0.5)
 
     @allure.step('open the URL')
     def open(self):
         self.browser.get(self.url)
 
-    def is_element_present(self, value):
+    def element_is_not_present(self, value):
         try:
-            self.browser.find_element(value)
-        except NoSuchElementException:
-            return False
-        return True
-
-    def element_is_visible(self, value, timeout=10):
-        return wait(self.browser, timeout).until(EC.visibility_of_element_located(value))
-
-    def is_not_element_present(self, locator, timeout=4):
-        try:
-            wait(self.browser, timeout).until(EC.presence_of_element_located((locator)))
+            self.wait.until(EC.presence_of_element_located(value))
         except TimeoutException:
             return True
 
         return False
 
-    def is_disappeared(self, value, timeout=4):
+    def is_disappeared(self, value):
         try:
-            wait(self.browser, timeout, 1, TimeoutException). \
-                until_not(EC.presence_of_element_located(value))
+            self.wait.until_not(EC.presence_of_element_located(value))
         except TimeoutException:
             return False
 
@@ -64,20 +56,24 @@ class BasePage:
 
     @allure.step('go to login page')
     def go_to_login_page(self):
-        with allure.step('go to login page'):
-            self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
+        self.wait.until(EC.element_to_be_clickable(self.LOGIN_LINK)).click()
 
     @allure.step('check the login link')
     def should_be_login_link(self):
-        assert self.browser.find_element(*BasePageLocators.LOGIN_LINK),\
+        assert self.wait.until(EC.visibility_of_element_located(self.LOGIN_LINK)),\
             "Login link is not presented"
 
     @allure.step('check a basket button')
     def go_to_view_basket(self):
         with allure.step('click a basket button'):
-            self.browser.find_element(*BasePageLocators.VIEW_BASKET).click()
+            self.wait.until(EC.element_to_be_clickable(self.VIEW_BASKET)).click()
 
     @allure.step('check the user is authorized')
     def should_be_authorized_user(self):
-        assert self.element_is_visible(self.locators.USER_ICON),\
+        assert self.wait.until(EC.element_to_be_clickable(self.USER_ICON)),\
             "User icon is not presented probably unauthorised user"
+
+    @allure.step('user can logout')
+    def user_can_logout(self):
+        assert self.wait.until(EC.element_to_be_clickable(self.LOGOUT_BUTTON)), \
+            "User can't logout"
