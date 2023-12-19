@@ -13,15 +13,15 @@ class BasePage:
     VIEW_BASKET = ('xpath', '//a[contains(text(), "View basket")]')
     USER_ICON = ('css selector', '.icon-user')
 
-    def __init__(self, browser, url):
+    def __init__(self, browser):
         self.browser = browser
-        self.url = url
         self.wait = WebDriverWait(browser, 15, poll_frequency=0.5)
 
     @allure.step('open the URL')
-    def open(self):
-        self.browser.get(self.url)
+    def open(self, url):
+        self.browser.get(url)
 
+    @allure.step('check that element is not present on the page')
     def element_is_not_present(self, value):
         try:
             self.wait.until(EC.presence_of_element_located(value))
@@ -30,6 +30,7 @@ class BasePage:
 
         return False
 
+    @allure.step('check that element disappeared after 15 seconds')
     def is_disappeared(self, value):
         try:
             self.wait.until_not(EC.presence_of_element_located(value))
