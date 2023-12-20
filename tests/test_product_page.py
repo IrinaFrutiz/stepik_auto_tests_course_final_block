@@ -99,21 +99,21 @@ class TestGuest(BaseTest):
 @pytest.mark.login
 class TestUserAddToBasketFromProductPage(BaseTest):
     @pytest.fixture(scope="function")
-    def setup_test(self):
+    def user_login(self):
         link = 'https://selenium1py.pythonanywhere.com/accounts/login/'
         self.base_page.open(link)
         self.login_page.register_new_user(self.data.email)
         self.base_page.should_be_authorized_user()
 
     @allure.title("Check user can't see success message")
-    def test_user_cant_see_success_message(self):
+    def test_user_cant_see_success_message(self, user_login):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
         self.base_page.open(link)
         self.product_page.should_no_message_after_adding_product_to_basket()
 
     @allure.title("Check user can add a product to the basket")
     @pytest.mark.need_review
-    def test_user_can_add_product_to_basket(self):
+    def test_user_can_add_product_to_basket(self, user_login):
         link = 'https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
         self.product_page.open(link)
         self.product_page.should_be_product_page()
