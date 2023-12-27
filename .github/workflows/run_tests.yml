@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - en_test
+          - en_test_50_times
           - en-gb_test_and_Edge
           - en-US_test_and_Firefox
           - el_test
@@ -108,6 +109,10 @@ jobs:
       - name: en_test
         if: "github.event.inputs.deployment_target == 'en_test'"
         run: pytest --alluredir="allure-results"
+        continue-on-error: true
+      - name: en_test_50_times
+        if: "github.event.inputs.deployment_target == 'en_test'"
+        run: pytest --count=50 --alluredir="allure-results"
         continue-on-error: true
       - name: ar_test
         if: "github.event.inputs.deployment_target == 'ar_test'"
