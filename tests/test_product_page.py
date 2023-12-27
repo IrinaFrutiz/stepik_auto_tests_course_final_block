@@ -102,7 +102,7 @@ class TestUserAddToBasketFromProductPage(BaseTest):
     def user_login(self):
         link = 'https://selenium1py.pythonanywhere.com/accounts/login/'
         self.base_page.open(link)
-        self.login_page.register_new_user(self.data.email)
+        self.login_page.register_new_user(self.data.generate_email())
         self.base_page.should_be_authorized_user()
 
     @allure.title("Check user can't see success message")

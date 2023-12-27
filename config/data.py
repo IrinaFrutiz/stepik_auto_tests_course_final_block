@@ -2,5 +2,7 @@ from faker import Faker
 
 
 class Data:
-    fake = Faker()
-    email = fake.email()
+    @classmethod
+    def generate_email(cls):
+        fake = Faker()
+        return fake.email()

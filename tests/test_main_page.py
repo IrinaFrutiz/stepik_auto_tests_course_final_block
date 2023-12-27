@@ -43,7 +43,7 @@ class TestsUser(BaseTest):
     def user_login(self):
         link = 'http://selenium1py.pythonanywhere.com/accounts/login/'
         self.base_page.open(link)
-        self.login_page.register_new_user(self.data.email)
+        self.login_page.register_new_user(self.data.generate_email())
         self.base_page.should_be_authorized_user()
     @allure.title('User can login, logout and after check login page')
     @allure.severity("Critical")
