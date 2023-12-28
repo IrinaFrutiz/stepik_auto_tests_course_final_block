@@ -15,7 +15,7 @@ class BasePage:
 
     def __init__(self, browser):
         self.browser = browser
-        self.wait = WebDriverWait(browser, 15, poll_frequency=0.5)
+        self.wait = WebDriverWait(browser, 20, poll_frequency=0.5)
 
     @allure.step('open the URL')
     def open(self, url):
