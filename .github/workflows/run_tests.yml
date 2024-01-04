@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - en_test
-          - en_test_50_times
+          - API tests only
           - en-gb_test_and_Edge
           - en-US_test_and_Firefox
           - el_test
@@ -104,15 +104,17 @@ jobs:
           sudo apt-get install microsoft-edge-dev
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Set variable
+        run: APP_ID=${{ vars.APP_ID }}
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - name: en_test
         if: "github.event.inputs.deployment_target == 'en_test'"
         run: pytest --alluredir="allure-results"
         continue-on-error: true
-      - name: en_test_50_times
-        if: "github.event.inputs.deployment_target == 'en_test'"
-        run: pytest --count=50 --alluredir="allure-results"
+      - name: API tests only
+        if: "github.event.inputs.deployment_target == 'API tests only'"
+        run: pytest --alluredir="allure-results" test_api_requests.py
         continue-on-error: true
       - name: ar_test
         if: "github.event.inputs.deployment_target == 'ar_test'"
