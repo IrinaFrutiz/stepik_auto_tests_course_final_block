@@ -91,6 +91,20 @@ class TestApi:
         return response.json()['id'], response.json()['firstName'], \
             response.json()['lastName'], response.json()['email']
 
+    def test_create_user_without_data(self):
+        response = requests.post(URL + '/user/create', headers=headers)
+
+        assert response.status_code == 400, \
+            f'Response: {response.status_code} is not 400'
+        assert response.json()['error'] == "BODY_NOT_VALID", \
+            f'Wrong error'
+        assert response.json()['data']['lastName'] == "Path `lastName` is required.", \
+            f'Wrong lastname error in response'
+        assert response.json()['data']['firstName'] == "Path `firstName` is required.", \
+            f'Wrong firstName error in response'
+        assert response.json()['data']['email'] == "Path `email` is required.", \
+            f'Wrong email error in response'
+
     @allure.title("Check update user info")
     def test_put_update_user(self, user_id='659417bfa26bc4984b1f76ea', email='johnsonerica@example.com'):
         new_f_name, new_l_name = fake.name().split()
@@ -191,6 +205,19 @@ class TestApi:
         assert response.json()['owner']['id'] == user_id, \
             f'owner id in response is not {user_id}'
         return response.json()['id'], img_link, likes, text, user_id
+
+    def test_create_post_without_user_id(self):
+        body = json.dumps({
+            "text": "text",
+            "image": "img_link",
+            "likes": 100
+        })
+        response = requests.post(URL + f'/post/create', headers=headers, data=body)
+
+        assert response.status_code == 400, \
+            f'Response: {response.status_code} is not 400'
+        assert response.json()['error'] == "BODY_NOT_VALID", \
+            f'Wrong error in response'
 
     @allure.title("Check update user's post")
     def test_update_post(self, post_id='659551257c13cd59d677a3af', user_id='659417bfa26bc4984b1f76ea'):
