@@ -105,7 +105,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Set variable
-        run: APP_ID=${{ vars.APP_ID }}
+        run: echo APP_ID=${{ secrets.APP_ID }} > .env
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - name: en_test
