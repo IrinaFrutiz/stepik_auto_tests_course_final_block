@@ -1,6 +1,6 @@
 # Test Automation Repository
 
-This repository contains automated tests for the Oscar Sandbox(a site for training autotests) and API tests for DummyAPI, utilizing Selenium, pytest, requests and allure.
+This repository contains automated tests for the Oscar Sandbox (a site for training autotests) and API tests for DummyAPI, utilizing Selenium, pytest, requests and allure.
 
 ## Allure report
 
