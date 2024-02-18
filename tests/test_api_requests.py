@@ -11,11 +11,10 @@ from faker import Faker
 load_dotenv()
 
 URL = 'https://dummyapi.io/data/v1'
-APP_ID = os.getenv('APP_ID')
 fake = Faker()
 
 headers = {
-    'app-id': APP_ID,
+    'app-id': os.getenv('APP_ID'),
     'Content-Type': 'application/json',
            }
 
@@ -23,7 +22,7 @@ headers = {
 @allure.feature('Check API tests')
 @pytest.mark.api
 class TestApi:
-    @allure.title("Check create user, check userinfo, create post, delete user")
+    @allure.title("Check create the user, check user's info, update the user, create user's post, check post's info, update the post, delete the post delete the user")
     def test_check_user_path(self):
         user_id, f_name, l_name, email = self.test_post_create_user()
         self.test_get_user_by_id(user_id, f_name, l_name, email)
@@ -38,19 +37,19 @@ class TestApi:
         delete_user(user_id)
         get_nonexistent_user(user_id)
 
-    @allure.title("Try to get user list without auth")
+    @allure.title("Try to get a users list without auth")
     def test_get_user_list_without_auth(self):
         response = requests.get(URL+'/user')
         assert response.status_code == 403, \
             f'Response: {response.status_code} is not 403'
 
-    @allure.title("Check user list")
+    @allure.title("Check a users list")
     def test_get_user_list(self):
         response = requests.get(URL+'/user', headers=headers)
         assert response.status_code == 200, \
             f'Response: {response.status_code} is not 200'
 
-    @allure.title("Check user info")
+    @allure.title("Check user's info")
     def test_get_user_by_id(self, user_id='658d761f1d2a3818e95b55fb', first_name='Laura',
                             last_name='Moran', email='thompsonnicholas@example.com'):
         response = requests.get(URL+f'/user/{user_id}', headers=headers)
@@ -66,7 +65,7 @@ class TestApi:
         assert response.json()['email'] == email, \
             f'email in response is not equal to {email}'
 
-    @allure.title("Check create user")
+    @allure.title("Check create a new user")
     def test_post_create_user(self):
         firstname, lastname = fake.name().split()
         email = fake.email()
@@ -91,6 +90,7 @@ class TestApi:
         return response.json()['id'], response.json()['firstName'], \
             response.json()['lastName'], response.json()['email']
 
+    @allure.title("Check errors when try to create a new user without data")
     def test_create_user_without_data(self):
         response = requests.post(URL + '/user/create', headers=headers)
 
@@ -105,7 +105,7 @@ class TestApi:
         assert response.json()['data']['email'] == "Path `email` is required.", \
             f'Wrong email error in response'
 
-    @allure.title("Check update user info")
+    @allure.title("Check update user's info")
     def test_put_update_user(self, user_id='659417bfa26bc4984b1f76ea', email='johnsonerica@example.com'):
         new_f_name, new_l_name = fake.name().split()
         new_phone = random.randint(1, 999999999)
@@ -133,35 +133,35 @@ class TestApi:
             response.json()['lastName'], response.json()['email'], \
             response.json()['phone']
 
-    @allure.title("Check get post's list")
+    @allure.title("Check get a posts list")
     def test_get_list_posts(self):
         response = requests.get(URL + f'/post', headers=headers)
 
         assert response.status_code == 200, \
             f'Response: {response.status_code} is not 200'
 
-    @allure.title("Try to get post's list without auth")
+    @allure.title("Try to get a posts list without auth")
     def test_get_list_posts_without_auth(self):
         response = requests.get(URL + f'/post')
 
         assert response.status_code == 403, \
             f'Response: {response.status_code} is not 403'
 
-    @allure.title("Check get post list by user")
+    @allure.title("Check get user's posts list")
     def test_get_list_by_user(self, user_id='659417bfa26bc4984b1f76ea'):
         response = requests.get(URL+f'/user/{user_id}/post', headers=headers)
 
         assert response.status_code == 200, \
             f'Response: {response.status_code} is not 200'
 
-    @allure.title("Try to get post list without auth")
+    @allure.title("Try to get user's post list without auth")
     def test_get_list_by_user_without_auth(self, user_id='659417bfa26bc4984b1f76ea'):
         response = requests.get(URL+f'/user/{user_id}/post')
 
         assert response.status_code == 403, \
             f'Response: {response.status_code} is not 403'
 
-    @allure.title("Check post by id")
+    @allure.title("Check a post by id")
     def test_get_post_by_id(self, post_id='65954c9b7c13cd23ea77a28f',
                             img_link='https://randomuser.me/api/portraits/women/58.jpg',
                             likes=538913, text='text', user_id='65954c9a0d9da79ce7e3b9d6'):
@@ -180,7 +180,7 @@ class TestApi:
         assert response.json()['owner']['id'] == user_id, \
             f'owner id in response is not {user_id}'
 
-    @allure.title("Check create user's post")
+    @allure.title("Check create new user's post")
     def test_post_create_users_post(self, user_id='659417bfa26bc4984b1f76ea'):
         text = random.choice(['text', 'test', 'qa', 'some text 1234567890!@#$%^&*()`~<>?:"{}'])
         img_link = "https://randomuser.me/api/portraits/women/58.jpg"
@@ -206,6 +206,7 @@ class TestApi:
             f'owner id in response is not {user_id}'
         return response.json()['id'], img_link, likes, text, user_id
 
+    @allure.title("Check errors when try to create new user's post without user")
     def test_create_post_without_user_id(self):
         body = json.dumps({
             "text": "text",
@@ -245,12 +246,12 @@ class TestApi:
             f'owner id in response is not {user_id}'
         return response.json()['id'], img_link, likes, text, user_id
 
-    @allure.title("Check create and after delete user")
+    @allure.title("Check create and after delete a new user")
     def test_delete_user(self):
         user_id, *_ = self.test_post_create_user()
         delete_user(user_id)
 
-    @allure.title("Check create and after delete post")
+    @allure.title("Check create and after delete a new post")
     def test_delete_post(self):
         post_id, *_ = self.test_post_create_users_post()
         delete_post(post_id)
