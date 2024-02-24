@@ -29,8 +29,4 @@ class User(Base):
             f'phone in response is not equal to {self.data["phone"]}'
 
     def get_user_data(self):
-        try:
-            self.data.update({"id": self.response_json["id"]})
-        except KeyError:
-            self.data["id"] = self.response_json["id"]
         return self.data

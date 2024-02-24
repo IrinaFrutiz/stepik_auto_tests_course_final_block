@@ -12,6 +12,7 @@ class Data:
     def generate_email(cls):
         return fake.email()
 
+    @classmethod
     def generate_user_data(cls):
         name = fake.name()
         if len(name.split()) > 2:
@@ -25,6 +26,7 @@ class Data:
         }
         return body
 
+    @classmethod
     def generate_user_data_update(cls):
         name = fake.name()
         if len(name.split()) > 2:
@@ -38,6 +40,7 @@ class Data:
         }
         return body
 
+    @classmethod
     def generate_users_post_data(cls):
         text = random.choice(['text', 'test', 'qa', 'some text 1234567890!@#$%^&*()`~<>?:"{}'])
         likes = random.randint(1, 1_000_000)

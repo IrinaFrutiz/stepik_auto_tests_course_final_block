@@ -20,8 +20,9 @@ class CreateUser(User):
                 self.response = requests.post(self.URL+self.path, headers=self.headers)
             else:
                 self.response = requests.post(self.URL+self.path, data=json.dumps(self.data), headers=self.headers)
-
         self.response_json = self.response.json()
+        if "id" in self.response_json:
+            self.data["id"] = self.response_json["id"]
 
     @allure.title("Check errors when a response don't have data")
     def check_errors(self):

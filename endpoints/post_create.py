@@ -22,6 +22,8 @@ class CreateUsersPost(Post):
         else:
             self.response = requests.post(self.URL+self.path, headers=self.headers, data=json.dumps(self.data))
         self.response_json = self.response.json()
+        if "id" in self.response_json:
+            self.data["id"] = self.response_json["id"]
 
     def check_not_found_error(self):
         assert self.response_json['error'] == "BODY_NOT_VALID", \

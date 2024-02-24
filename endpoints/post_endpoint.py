@@ -28,8 +28,4 @@ class Post(Base):
             f"image in response is not {self.data['owner']}"
 
     def get_post_data(self):
-        try:
-            self.data.update({"id": self.response_json["id"]})
-        except KeyError:
-            self.data["id"] = self.response_json['id']
         return self.data
