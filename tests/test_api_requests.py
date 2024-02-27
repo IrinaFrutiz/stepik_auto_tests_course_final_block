@@ -145,10 +145,6 @@ class TestApi(Endpoint):
         self.delete_users_post.new_object(self.create_users_post.get_post_data(), True)
         self.delete_users_post.check_status_code_403()
 
-    def test_two(self):
-        assert 2+2 == 4, \
-            f'test for check github'
-
 # need recheck maybe change tests
 #     @allure.title("Check create the user, check user's info, update the user, create user's post, check post's info,"
 #                   "update the post, delete the post delete the user")
