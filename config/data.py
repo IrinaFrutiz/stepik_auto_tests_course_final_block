@@ -1,4 +1,3 @@
-import json
 import random
 from faker import Faker
 
@@ -8,12 +7,12 @@ fake = Faker()
 
 class Data:
 
-    @classmethod
-    def generate_email(cls):
+    @staticmethod
+    def generate_email():
         return fake.email()
 
-    @classmethod
-    def generate_user_data(cls):
+    @staticmethod
+    def generate_user_data():
         name = fake.name()
         if len(name.split()) > 2:
             return Data.generate_user_data()
@@ -26,8 +25,8 @@ class Data:
         }
         return body
 
-    @classmethod
-    def generate_user_data_update(cls):
+    @staticmethod
+    def generate_user_data_update():
         name = fake.name()
         if len(name.split()) > 2:
             return Data.generate_user_data_update()
@@ -40,8 +39,8 @@ class Data:
         }
         return body
 
-    @classmethod
-    def generate_users_post_data(cls):
+    @staticmethod
+    def generate_users_post_data():
         text = random.choice(['text', 'test', 'qa', 'some text 1234567890!@#$%^&*()`~<>?:"{}'])
         likes = random.randint(1, 1_000_000)
         img_link = f"https://randomuser.me/api/portraits/women/{random.randint(1, 90)}.jpg"
