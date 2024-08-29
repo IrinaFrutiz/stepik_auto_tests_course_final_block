@@ -2,16 +2,10 @@ import allure
 import pytest
 from selenium import webdriver
 # Chrome
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 # FireFox
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.firefox.service import Service as FFService
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
 # Edge
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.edge.options import Options as EdgeOptions
 
 
@@ -37,7 +31,6 @@ def browser(request):
         options_chrome.add_argument("--disable-dev-shm-usage")
         options_chrome.add_argument("--disable-search-engine-choice-screen")
         browser = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager().install()),
             options=options_chrome)
 
     elif browser_name == "firefox":
@@ -46,7 +39,6 @@ def browser(request):
         options_firefox.add_argument("--window-size=1920,1080")
         options_firefox.add_argument("--headless")
         browser = webdriver.Firefox(
-            service=FFService(GeckoDriverManager().install()),
             options=options_firefox)
 
     elif browser_name == "edge":
@@ -57,7 +49,6 @@ def browser(request):
         options_edge.add_argument("--window-size=1920,1080")
         options_edge.add_argument("--headless")
         browser = webdriver.Edge(
-            service=EdgeService(EdgeChromiumDriverManager().install()),
             options=options_edge)
 
     else:
