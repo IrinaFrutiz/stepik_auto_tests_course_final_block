@@ -15,7 +15,7 @@ class BaseTest:
     product_page: ProductPage
 
     @pytest.fixture(autouse=True)
-    def setup(self, request, browser):
+    def setup_method(self, request, browser):
         request.cls.browser = browser
         request.cls.data = Data()
         request.cls.login_page = LoginPage(browser)

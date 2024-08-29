@@ -45,6 +45,7 @@ class TestsUser(BaseTest):
         self.base_page.open(link)
         self.login_page.register_new_user(self.data.generate_email())
         self.base_page.should_be_authorized_user()
+
     @allure.title('User can login, logout and after check login page')
     @allure.severity("Critical")
     def test_user_can_logout(self, user_login):
