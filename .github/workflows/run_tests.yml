@@ -29,10 +29,12 @@ on:
           - uk_test
           - zh-cn_test
 
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 
 jobs:
   download-history:
